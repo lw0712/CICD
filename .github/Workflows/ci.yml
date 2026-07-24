@@ -31,7 +31,7 @@ jobs:
         run: mvn clean package
 
       - name: Build Docker Image
-        run: docker build -c ci-cd
+        run: docker build -t ghcr.io/lw0712/ci-cd:latest
 
 
       - name: Login to GHR
@@ -40,5 +40,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker Image
+        run: docker push ghcr.io/lw0712/ci-cd:latest
 
 
