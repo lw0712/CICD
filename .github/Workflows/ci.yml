@@ -26,18 +26,8 @@ jobs:
           distribution: 'temurin'
 
       - name: Build Application
-        run: mvn clean package
+        run: ./mvnm clean package
 
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      - name: Build Docker Image
+        run: docker build -c ci-cd
 
-      - name: Build project
-        run: mvn clean package
-
-      - name: Run tests
-        run: mvn test
